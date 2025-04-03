@@ -14,8 +14,12 @@ clock = pygame.time.Clock()
 #check jump
 is_jump=False
 jump_start_time=0
-jump_duration=0.7
+jump_duration=1.2
 jump_height=100
+gia_toc=1
+tocdo_nhay=20
+vantoc_y=0
+dat=500
 
 while running:
     for event in pygame.event.get():
@@ -30,15 +34,19 @@ while running:
     #jump
     if keys[pygame.K_w] and not is_jump:
         is_jump=True
-        jump_start_time=time.time()
-        mario_rect.y-=jump_height
+        vantoc_y=-tocdo_nhay
     if is_jump:
-        if time.time()-jump_start_time>=jump_duration:
-            mario_rect.y+=jump_height
+        mario_rect.y+=vantoc_y
+        vantoc_y+=gia_toc
+        if mario_rect.y>=dat:
+            mario_rect.y=dat
             is_jump=False
 
     if keys[pygame.K_s]: 
-        mario_rect.y += mario_speed
+        if mario_rect.y<=500:
+            pass
+        else:
+            mario_rect.y += mario_speed
     if mario_rect.x < 0:
         mario_rect.x = 0
     if mario_rect.x > screen.get_width() - mario_rect.width:
